@@ -37,7 +37,8 @@ SRC =	so_long.c \
 		4_event_handling/key_press.c \
 		error_general_hendler/error_general_hendler.c \
 		error_general_hendler/free.c \
-		error_general_hendler/free_images.c
+		error_general_hendler/free_images.c \
+		draw_funtions/draw_by_pixel.c
 
 all: $(NAME)
 

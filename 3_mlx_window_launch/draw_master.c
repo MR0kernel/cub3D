@@ -13,47 +13,48 @@
 #include "../includes/so_long.h"
 
 static void insert_objects(t_master *master, char object, int x, int y);
-static void draw_line(t_master *master, int x0,int y0,int x1,int y1);
+//static void draw_line(t_master *master, int x0,int y0,int x1,int y1);
 
 int	draw_player(t_master *master)
 {
-	mlx_put_image_to_window(master->mlx, master->win, \
-							master->imgs.player_img, \
-							(master->player.x * 70), \
-							(master->player.y * 70));
-    draw_line(master, 0, 0, master->player.x * 70, master->player.y* 70);
+    mlx_put_image_to_window(master->mlx, master->win, master->canvas, 0, 0);
+//	mlx_put_image_to_window(master->mlx, master->win,
+//							master->imgs.player_img,
+//							(master->player.x * 70),
+//							(master->player.y * 70));
+    draw_line(master->canvas, SCREEN_SIZE_X / 2, 50, 0x0066FF00);
     return (0);
 }
 
-void draw_line (t_master *master, int x0,int y0,int x1,int y1)
-{
-    int dy, dx, incrE, incrNE, d,x,y;
-
-    dx = x1 - x0;
-    dy = y1 - y0;
-    d = 2 * dy - dx;
-    incrE = 2*dy;
-    incrNE = 2*(dy - dx);
-    x = x0;
-    y = y0;
-    mlx_pixel_put(master->mlx, master->win, x, y, 0x00FF0000);
-    while(x < x1)
-    {
-        if (d <= 0)
-        {
-            d += incrE;
-            x++;
-        }
-        else
-        {
-            d += incrNE;
-            x++;
-            y++;
-        }
-        mlx_pixel_put(master->mlx, master->win, x, y, 0x00FF0000);
-    }
-    printf("player X %d; player Y%d; ------- X%d Y%d\n", x1, y1, x, y);
-}
+//void draw_line (t_master *master, int x0,int y0,int x1,int y1)
+//{
+//    int dy, dx, incrE, incrNE, d,x,y;
+//
+//    dx = x1 - x0;
+//    dy = y1 - y0;
+//    d = 2 * dy - dx;
+//    incrE = 2*dy;
+//    incrNE = 2*(dy - dx);
+//    x = x0;
+//    y = y0;
+//    mlx_pixel_put(master->mlx, master->win, x, y, 0x00FF0000);
+//    while(x < x1)
+//    {
+//        if (d <= 0)
+//        {
+//            d += incrE;
+//            x++;
+//        }
+//        else
+//        {
+//            d += incrNE;
+//            x++;
+//            y++;
+//        }
+//        mlx_pixel_put(master->mlx, master->win, x, y, 0x00FF0000);
+//    }
+//    printf("player X %d; player Y%d; ------- X%d Y%d\n", x1, y1, x, y);
+//}
 
 void	draw_map(t_master *master)
 {
