@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guilrodr <guilrodr@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:10:47 by guilrodr          #+#    #+#             */
-/*   Updated: 2023/12/10 13:53:21 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 17:30:24 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		character_mouvement(t_master *master, int keypressed);
 * draw funtions
 */
 void    draw_pixel(t_img *canvas, int x, int y, int color);
-void    draw_line(t_img *canvas, int x, int size, int color);
+void    draw_debug_lines(t_img *canvas);
 
 // FOR TESTING PURPOSES ONLY
 void	print_map(char **map, size_t y_index);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_master.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guilrodr <guilrodr@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:45:15 by guilrodr          #+#    #+#             */
-/*   Updated: 2023/12/10 12:41:15 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 17:30:27 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	draw_player(t_master *master)
 //							master->imgs.player_img,
 //							(master->player.x * 70),
 //							(master->player.y * 70));
-    draw_line(master->canvas, SCREEN_SIZE_X / 2, 50, 0x0066FF00);
+    draw_debug_lines(master->canvas);
     return (0);
 }
 
