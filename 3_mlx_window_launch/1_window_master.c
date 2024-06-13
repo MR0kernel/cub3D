@@ -23,7 +23,7 @@ void	launch_window(t_master *master)
 		third_class_error_handler(master, 1);
     master->canvas = mlx_new_image(master->mlx, SCREEN_SIZE_X, SCREEN_SIZE_Y);
 	draw_map(master);
-	mlx_loop_hook(master->mlx, draw_player, master);
+//	mlx_loop_hook(master->mlx, draw_player, master);
 	mlx_key_hook(master->win, keypress, master);
 	mlx_hook(master->win, 17, 0, end_of_program_macro, master);
 	mlx_loop(master->mlx);

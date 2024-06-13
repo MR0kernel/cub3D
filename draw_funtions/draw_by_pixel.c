@@ -32,3 +32,28 @@ void    draw_debug_lines(t_img *canvas)
     while (_x > -1)
         draw_pixel(canvas, _x--, SCREEN_SIZE_Y >> 1, 0x00FF66FF); // violet
 }
+
+void    draw_column(t_img *canvas, t_xy origin, t_xy dest)
+{
+    int    base;
+
+    base = (SCREEN_SIZE_Y >> 1) - (((int)dest.y - (int)origin.y) >> 1);
+    while (origin.y++ <  dest.y)
+        draw_pixel(canvas, origin.x, origin.y + base, 0x00FF66FF);
+}
+
+void    draw_cross(t_img *canvas, double x, double y)
+{
+    draw_pixel(canvas, (int)x - 1, (int)y, 0x0000FF33);
+    draw_pixel(canvas, (int)x - 2, (int)y, 0x0000FF33);
+    draw_pixel(canvas, (int)x - 3, (int)y, 0x0000FF33);
+    draw_pixel(canvas, (int)x + 1, (int)y, 0x0000FF33);
+    draw_pixel(canvas, (int)x + 2, (int)y, 0x0000FF33);
+    draw_pixel(canvas, (int)x + 3, (int)y, 0x0000FF33);
+    draw_pixel(canvas, (int)x, (int)y - 1, 0x0000FF33);
+    draw_pixel(canvas, (int)x, (int)y - 2, 0x0000FF33);
+    draw_pixel(canvas, (int)x, (int)y - 3, 0x0000FF33);
+    draw_pixel(canvas, (int)x, (int)y + 1, 0x0000FF33);
+    draw_pixel(canvas, (int)x, (int)y + 2, 0x0000FF33);
+    draw_pixel(canvas, (int)x, (int)y + 3, 0x0000FF33);
+}

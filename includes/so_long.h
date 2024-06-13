@@ -26,8 +26,8 @@
 # define EXIT_IMAGE "./textures/bed70x70.xpm"
 # define PLAYER_IMAGE "./textures/player_hack70x70_1.xpm"
 
-#define SCREEN_SIZE_X 700
-#define SCREEN_SIZE_Y 500
+# define SCREEN_SIZE_X 1000
+# define SCREEN_SIZE_Y 1000
 
 # define X_TO_I mlx_xpm_file_to_image
 
@@ -42,9 +42,16 @@ typedef struct s_imgs
 
 typedef struct s_player
 {
-	size_t	x;
-	size_t	y;
+	double	x;
+	double	y;
+    double  dir;
 }	t_player;
+
+typedef struct s_xy
+{
+    double	x;
+    double	y;
+}	t_xy;
 
 typedef struct s_map
 {
@@ -122,7 +129,11 @@ int		character_mouvement(t_master *master, int keypressed);
 * draw funtions
 */
 void    draw_pixel(t_img *canvas, int x, int y, int color);
+void    draw_image(t_img *canvas, t_img *img, int x, int y);
 void    draw_debug_lines(t_img *canvas);
+void    draw_cross(t_img *canvas, double x, double y);
+
+void    draw_column(t_img *canvas, t_xy origin, t_xy dest);
 
 // FOR TESTING PURPOSES ONLY
 void	print_map(char **map, size_t y_index);
