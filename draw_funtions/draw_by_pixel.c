@@ -50,6 +50,25 @@ void    draw_column(t_img *canvas, t_xy origin, t_xy dest)
 //	 }
 }
 
+void    draw_block(t_img *canvas, t_xy origin)
+{
+	int	x;
+	int	y;
+	
+	x = origin.x;
+	y = origin.y;
+	while (y < ((COLLUMN_SIZE / MINI_MAP_DIV_Y) + origin.y))
+	{
+		while (x < ((COLLUMN_SIZE / MINI_MAP_DIV_X) + origin.x))
+		{
+			draw_pixel(canvas, x, y, 0x0FF0FF00);
+			x++;
+		}
+		x = origin.x;
+		y++;
+	}
+}
+
 void    draw_cross(t_img *canvas, double x, double y, int color)
 {
     draw_pixel(canvas, (int)x - 1, (int)y, color);

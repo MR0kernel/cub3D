@@ -28,7 +28,7 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
 	(void)hit_y;
 	size_t	x;
 	size_t	y;
-
+	
 	x = 0;
 	y = 0;
 	// clear_canvas(SCREEN_SIZE_X, SCREEN_SIZE_Y , master->mini_map);
@@ -39,14 +39,10 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
 		x = 0;
 		while (x < master->map.map_size_x)
 		{
-			if (master->map.original_map[y][x] != 'P' && master->map.original_map[y][x] != '0')
+			if (master->map.original_map[y][x] == '1')
 			{
-				for (int d = 0; d < COLLUMN_SIZE / MINI_MAP_DIV_X; d++)
-				{
-					for (int i = 0; i < COLLUMN_SIZE / MINI_MAP_DIV_Y; i++)
-						draw_pixel(master->mini_map, x * (COLLUMN_SIZE / MINI_MAP_DIV_X) + d,\
-													 y * (COLLUMN_SIZE / MINI_MAP_DIV_Y) + i, 0x00FF66FF);
-				}
+				draw_block(master->mini_map, (t_xy){x *  COLLUMN_SIZE / MINI_MAP_DIV_X, \
+																y * COLLUMN_SIZE / MINI_MAP_DIV_Y});
 			}
 			x++;
 		}
