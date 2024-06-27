@@ -17,12 +17,16 @@ int	draw_player(t_master *master);
 
 void	launch_window(t_master *master)
 {
+	master->mini_map_size_x = (SCREEN_SIZE_X / MINI_MAP_DIV_X);
+	master->mini_map_size_y = (SCREEN_SIZE_Y / MINI_MAP_DIV_Y);
+	master->mini_map_step_size_x = master->mini_map_size_x / master->map.map_size_x;
+	master->mini_map_step_size_y = master->mini_map_size_y / master->map.map_size_y;
 	master->win = mlx_new_window(master->mlx, SCREEN_SIZE_X, \
 			SCREEN_SIZE_Y, "so_long_3D");
 	if (!master->win)
 		third_class_error_handler(master, 1);
     master->canvas = mlx_new_image(master->mlx, SCREEN_SIZE_X, SCREEN_SIZE_Y);
-	master->mini_map = mlx_new_image(master->mlx, SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y);
+	master->mini_map = mlx_new_image(master->mlx, master->mini_map_size_x, master->mini_map_size_y);
 	draw_map(master);
 	mlx_loop_hook(master->mlx, draw_map, master);
 	mlx_hook(master->win, 2, (1L << 0),  keypress, master);

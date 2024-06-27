@@ -20,6 +20,7 @@ int	character_mouvement(t_master *master, int keypressed)
 	{
 		master->player.y += (sin(master->player.dir) / 10);
 		master->player.x += (cos(master->player.dir) / 10);
+		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
 	}
 	
 	if (keypressed == 115)
@@ -54,7 +55,6 @@ int	character_mouvement(t_master *master, int keypressed)
 			master->player.dir = 0;
 		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
 	}
-	printf("player x = %f, player y = %f\n", master->player.x, master->player.y);
 	return (0);
 }
 

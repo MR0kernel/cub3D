@@ -32,6 +32,8 @@
 # define PI 3.14159265359
 # define MINI_MAP_DIV_X 5
 # define MINI_MAP_DIV_Y 10
+# define FOV 60
+# define ONE_DEGREE 0.01745329
 
 # define X_TO_I mlx_xpm_file_to_image
 
@@ -75,6 +77,10 @@ typedef struct s_master
 	void		*win;
 	void		*canvas;
 	void		*mini_map;
+	int			mini_map_size_x;
+	int			mini_map_size_y;
+	int			mini_map_step_size_x;
+	int			mini_map_step_size_y;
 }	t_master;
 
 /*
@@ -138,7 +144,7 @@ void    draw_image(t_img *canvas, t_img *img, int x, int y);
 void    draw_debug_lines(t_img *canvas);
 void    draw_cross(t_img *canvas, double x, double y, int color);
 void	clear_canvas(int size_x, int size_y, t_img *canvas);
-void    draw_block(t_img *canvas, t_xy origin);
+void    draw_block(t_master *master, t_img *canvas, t_xy origin);
 
 void    draw_column(t_img *canvas, t_xy origin, t_xy dest);
 

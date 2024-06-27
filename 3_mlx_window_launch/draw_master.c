@@ -13,8 +13,7 @@
 #include "../includes/so_long.h"
 #include <math.h>
 
-#define FOV 60
-#define ONE_DEGREE 0.01745329
+
 
 //static void draw_line(t_master *master, int x0,int y0,int x1,int y1);
 static t_xy		raycast_x(t_master *master, t_player player);
@@ -29,11 +28,9 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
 	size_t	x;
 	size_t	y;
 	
-	x = 0;
 	y = 0;
-	// clear_canvas(SCREEN_SIZE_X, SCREEN_SIZE_Y , master->mini_map);
-	draw_cross(master->mini_map, master->player.x * COLLUMN_SIZE / MINI_MAP_DIV_X, \
-								master->player.y * COLLUMN_SIZE / MINI_MAP_DIV_Y, 0x00FF66FF);
+	draw_cross(master->mini_map, master->player.x * master->mini_map_step_size_x, \
+								master->player.y * master->mini_map_step_size_y, 0x00FF66FF);
 	while (y < master->map.map_size_y)
 	{
 		x = 0;
@@ -41,8 +38,8 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
 		{
 			if (master->map.original_map[y][x] == '1')
 			{
-				draw_block(master->mini_map, (t_xy){x *  COLLUMN_SIZE / MINI_MAP_DIV_X, \
-																y * COLLUMN_SIZE / MINI_MAP_DIV_Y});
+				draw_block(master, master->mini_map, (t_xy){x *  master->mini_map_step_size_x, \
+																y * master->mini_map_step_size_y});
 			}
 			x++;
 		}
@@ -145,12 +142,12 @@ static double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_playe
 	printf("distanace a = %f", distance_b);
 	if (distance_a < distance_b)
 	{
-		draw_cross(master->mini_map, hit_x.x * COLLUMN_SIZE / MINI_MAP_DIV_X, \
-										hit_x.y * COLLUMN_SIZE / MINI_MAP_DIV_Y, 0x0000FF33);
+		draw_cross(master->mini_map, hit_x.x * master->mini_map_step_size_x, \
+										hit_x.y * master->mini_map_step_size_y, 0x0000FF33);
 		return (distance_a);
 	}
-	draw_cross(master->mini_map, hit_y.x * COLLUMN_SIZE / MINI_MAP_DIV_X, \
-									hit_y.y * COLLUMN_SIZE / MINI_MAP_DIV_Y, 0x0000FF33);
+	draw_cross(master->mini_map, hit_y.x * master->mini_map_step_size_x, \
+									hit_y.y * master->mini_map_step_size_y, 0x0000FF33);
 	// printf("hit_y.x = %f, hit_y.y = %f\n", hit_y.x, hit_y.y);
 	return (distance_b);
 }

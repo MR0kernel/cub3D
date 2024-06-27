@@ -50,21 +50,21 @@ void    draw_column(t_img *canvas, t_xy origin, t_xy dest)
 //	 }
 }
 
-void    draw_block(t_img *canvas, t_xy origin)
+void    draw_block(t_master *master, t_img *canvas, t_xy origin)
 {
 	int	x;
 	int	y;
 	
-	x = origin.x;
-	y = origin.y;
-	while (y < ((COLLUMN_SIZE / MINI_MAP_DIV_Y) + origin.y))
+	x = 0;
+	y = 0;
+	while (y < master->mini_map_step_size_y)
 	{
-		while (x < ((COLLUMN_SIZE / MINI_MAP_DIV_X) + origin.x))
+		while (x < master->mini_map_step_size_x)
 		{
-			draw_pixel(canvas, x, y, 0x0FF0FF00);
+			draw_pixel(canvas, x + origin.x, y + origin.y, 0x0FF0FF00);
 			x++;
 		}
-		x = origin.x;
+		x = 0;
 		y++;
 	}
 }

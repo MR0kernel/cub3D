@@ -61,12 +61,12 @@ static void	exit_counter(t_master *master)
 	static int	game_exit;
 
 	game_exit++;
-	if (game_exit > 1)
-		second_class_error_handler(master, 4);
+//	if (game_exit > 1)
+//		second_class_error_handler(master, 4);
 }
 
 static void	is_there_zero_collectibles(t_master *master)
 {
-	if (master->collectibles == 0)
-		second_class_error_handler(master, 5);
+//	if (master->collectibles == 0)
+//		second_class_error_handler(master, 5);
 }
