@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1_mouvement_master.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guilrodr <guilrodr@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 12:28:41 by guilrodr          #+#    #+#             */
-/*   Updated: 2023/12/10 13:02:27 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/06/21 12:08:00 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static int	score_and_validation(t_master *master, int x, int y);
 
 int	character_mouvement(t_master *master, int keypressed)
 {
-	mlx_put_image_to_window(master->mlx, master->win, master->imgs.floor_img, (
-			master->player.x * 70), (master->player.y * 70));
 	if (keypressed == 119)
 		if (score_and_validation(master, master->player.x, \
 								master->player.y - 1))
@@ -29,11 +27,22 @@ int	character_mouvement(t_master *master, int keypressed)
 	if (keypressed == 97)
 		if (score_and_validation(master, master->player.x - 1, \
 								master->player.y))
-			master->player.x -= 1;
+		{
+			master->player.dir -= 0.1;
+			if (master->player.dir < 0)
+				master->player.dir = 2 * PI;
+			clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
+		}
 	if (keypressed == 100)
 		if (score_and_validation(master, master->player.x + 1, \
 								master->player.y))
-			master->player.x += 1;
+		{
+			master->player.dir += 0.1;
+			if (master->player.dir > 2 * PI)
+				master->player.dir = 0;
+			clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
+		}
+	printf("player x = %f, player y = %f\n", master->player.x, master->player.y);
 	return (0);
 }
 

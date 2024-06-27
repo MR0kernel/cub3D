@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:10:47 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/05/10 17:30:24 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/06/21 12:15:57 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 
 # define SCREEN_SIZE_X 1000
 # define SCREEN_SIZE_Y 1000
+# define COLLUMN_SIZE 50
+# define PI 3.14159265359
+# define MINI_MAP_DIV_X 5
+# define MINI_MAP_DIV_Y 10
 
 # define X_TO_I mlx_xpm_file_to_image
 
@@ -69,7 +73,8 @@ typedef struct s_master
 	t_imgs		imgs;
 	void		*mlx;
 	void		*win;
-    void        *canvas;
+	void		*canvas;
+	void		*mini_map;
 }	t_master;
 
 /*
@@ -115,7 +120,7 @@ void	launch_images(t_master *master);
 
 void	end_of_program(t_master *master, int exit_code);
 void	launch_window(t_master *master);
-void	draw_map(t_master *master);
+int		draw_map(t_master *master);
 int		draw_player(t_master *master);
 
 /*
@@ -131,7 +136,8 @@ int		character_mouvement(t_master *master, int keypressed);
 void    draw_pixel(t_img *canvas, int x, int y, int color);
 void    draw_image(t_img *canvas, t_img *img, int x, int y);
 void    draw_debug_lines(t_img *canvas);
-void    draw_cross(t_img *canvas, double x, double y);
+void    draw_cross(t_img *canvas, double x, double y, int color);
+void	clear_canvas(int size_x, int size_y, t_img *canvas);
 
 void    draw_column(t_img *canvas, t_xy origin, t_xy dest);
 

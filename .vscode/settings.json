@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"*.tcc": "c",
+		"algorithm": "c",
+		"iterator": "c",
+		"memory": "c",
+		"random": "c",
+		"functional": "c"
+	}
+}

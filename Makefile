@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: guilrodr <guilrodr@student.42lyon.fr >     +#+  +:+       +#+         #
+#    By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/08 19:59:30 by guilrodr          #+#    #+#              #
-#    Updated: 2023/12/10 13:21:41 by guilrodr         ###   ########lyon.fr    #
+#    Updated: 2024/06/19 20:09:18 by guilrodr         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -g3#-Werror
 MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 UTILSFLAGS = -L./ft_printf -l:libftprintf.a
 RM = rm -f
