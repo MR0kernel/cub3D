@@ -87,7 +87,8 @@ static t_xy raycast_y(t_master *master, t_player player)
 	ret.x = player.x + p_.x * fabs(ret.y - player.y);
 	while (ret.y > 0 && ret.x >= 0 && ret.x < master->map.map_size_x && ret.y < master->map.map_size_y)
 	{
-		if (master->map.original_map[(size_t)(ret.y - (sp < 0))][(size_t)(ret.x)] != '0')
+		if (master->map.original_map[(size_t)(ret.y - (sp < 0))][(size_t)(ret.x)] != '0' && \
+			master->map.original_map[(size_t)(ret.y - (sp < 0))][(size_t)(ret.x)] != 'P')
 			break;
 		ret.x += p_.x;
 		ret.y += p_.y;
@@ -121,7 +122,8 @@ static t_xy raycast_x(t_master *master, t_player player)
 	ret.y = player.y + p_.y * fabs(ret.x - player.x);
 	while (ret.y >= 0 && ret.x >= 0 && ret.x < master->map.map_size_x && ret.y < master->map.map_size_y)
 	{
-		if (master->map.original_map[(size_t)ret.y][(size_t)(ret.x - (cp < 0))] != '0')
+		if (master->map.original_map[(size_t)ret.y][(size_t)(ret.x - (cp < 0))] != '0' && \
+			master->map.original_map[(size_t)ret.y][(size_t)(ret.x - (cp < 0))] != 'P')
 			break;
 		ret.x += p_.x;
 		ret.y += p_.y;
@@ -140,8 +142,11 @@ static double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_playe
 	a.y = hit_x.y - player.y;
 	b.x = hit_y.x - player.x;
 	b.y = hit_y.y - player.y;
+	
 	distance_a = sqrt(a.x * a.x + a.y * a.y);
+	printf("distanace a = %f", distance_a);
 	distance_b = sqrt(b.x * b.x + b.y * b.y);
+	printf("distanace a = %f", distance_b);
 	if (distance_a < distance_b)
 	{
 		draw_cross(master->mini_map, hit_x.x * COLLUMN_SIZE / MINI_MAP_DIV_X, \
@@ -163,21 +168,21 @@ static void render_3d_map(t_master *master, t_player player)
 	int		wall_start;
 	int		wall_end;
 
-	for (int x = 0; x < FOV; x++)
+	for (int x = 0; x < SCREEN_SIZE_X; x++)
 	{
-		ray_dir = player.dir + (ONE_DEGREE * x);
+		ray_dir = player.dir - (ONE_DEGREE * x / FOV);
 		printf("RAY DIR %f\n", ray_dir);
 		ray_player.dir = ray_dir;
 		distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
 		wall_height = (int)(SCREEN_SIZE_Y / distance);
-		wall_start = -wall_height / 2 + SCREEN_SIZE_Y / 2;
+		wall_start = (-wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
 		if (wall_start < 0)
 			wall_start = 0;
-		wall_end = wall_height / 2 + SCREEN_SIZE_Y / 2;
+		wall_end = (wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
 		if (wall_end >= SCREEN_SIZE_Y)
 			wall_end = SCREEN_SIZE_Y - 1;
-		draw_column(master->canvas, (t_xy){x * COLLUMN_SIZE, wall_start}, (t_xy){x * COLLUMN_SIZE, wall_end});
+		draw_column(master->canvas, (t_xy){x, wall_start}, (t_xy){x, wall_end});
 	}
 }
 

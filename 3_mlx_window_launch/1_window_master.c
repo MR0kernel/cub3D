@@ -25,7 +25,7 @@ void	launch_window(t_master *master)
 	master->mini_map = mlx_new_image(master->mlx, SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y);
 	draw_map(master);
 	mlx_loop_hook(master->mlx, draw_map, master);
-	mlx_key_hook(master->win, keypress, master);
+	mlx_hook(master->win, 2, (1L << 0),  keypress, master);
 	mlx_hook(master->win, 17, 0, end_of_program_macro, master);
 	mlx_loop(master->mlx);
 }
