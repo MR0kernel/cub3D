@@ -40,14 +40,14 @@ void    draw_column(t_img *canvas, t_xy origin, t_xy dest)
 
 	base = 0;
 	origin_ = origin.y;
-	// while (base++ < COLLUMN_SIZE)
-	// {
+//	 while (base++ < COLLUMN_SIZE)
+//	 {
 	while (origin_++ <  dest.y)
 	{
 		draw_pixel(canvas, origin.x + base, origin_, 0x00FF66FF);
 	}
-	// 	origin_ = origin.y;
-	// }
+//	 	origin_ = origin.y;
+//	 }
 }
 
 void    draw_cross(t_img *canvas, double x, double y, int color)

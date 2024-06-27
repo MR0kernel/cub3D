@@ -22,6 +22,10 @@ int	keypress(int keypressed, t_master *master)
 		character_mouvement(master, keypressed);
 	if (keypressed == 100)
 		character_mouvement(master, keypressed);
+	if (keypressed == XK_Left)
+		character_mouvement(master, keypressed);
+	if (keypressed == XK_Right)
+		character_mouvement(master, keypressed);
 	if (keypressed == 65307)
 		end_of_program(master, 0);
 	return (keypressed);

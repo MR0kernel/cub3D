@@ -163,9 +163,10 @@ static void render_3d_map(t_master *master, t_player player)
 	int		wall_start;
 	int		wall_end;
 
-	for (int x = 0; x < SCREEN_SIZE_X; x++)
+	for (int x = 0; x < FOV; x++)
 	{
 		ray_dir = player.dir + (ONE_DEGREE * x);
+		printf("RAY DIR %f\n", ray_dir);
 		ray_player.dir = ray_dir;
 		distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
@@ -176,7 +177,7 @@ static void render_3d_map(t_master *master, t_player player)
 		wall_end = wall_height / 2 + SCREEN_SIZE_Y / 2;
 		if (wall_end >= SCREEN_SIZE_Y)
 			wall_end = SCREEN_SIZE_Y - 1;
-		draw_column(master->canvas, (t_xy){x , wall_start}, (t_xy){x, wall_end});
+		draw_column(master->canvas, (t_xy){x * COLLUMN_SIZE, wall_start}, (t_xy){x * COLLUMN_SIZE, wall_end});
 	}
 }
 
