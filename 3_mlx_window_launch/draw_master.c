@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:45:15 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/06/26 16:47:34 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/07/30 13:24:04 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ static void render_3d_map(t_master *master, t_player player)
 		wall_end = (wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
 		if (wall_end >= SCREEN_SIZE_Y)
 			wall_end = SCREEN_SIZE_Y - 1;
-		draw_column(master->canvas, (t_xy){x, wall_start}, (t_xy){x, wall_end});
+		draw_column(master, master->canvas, (t_xy){x, wall_start}, (t_xy){x, wall_end});
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:35:29 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/06/26 16:45:31 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/07/30 13:23:15 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,27 @@ void    draw_debug_lines(t_img *canvas)
         draw_pixel(canvas, _x--, SCREEN_SIZE_Y >> 1, 0x00FF6600); // violet
 }
 
-void    draw_column(t_img *canvas, t_xy origin, t_xy dest)
+void    draw_column(t_master *master, t_img *canvas, t_xy origin, t_xy dest)
 {
-	double	base;
-	double	origin_;
-
-	base = 0;
-	origin_ = origin.y;
-//	 while (base++ < COLLUMN_SIZE)
-//	 {
-	while (origin_++ <  dest.y)
+	(void)master;
+    char	*color = NULL;
+	char	*img_data = master->imgs.wall_img->data; 
+	
+	printf("AAAA origin.x = %d\n origin.y = %d\n", (origin.x  , origin.y));
+	while (origin.y++ <  dest.y)
 	{
-		draw_pixel(canvas, origin.x + base, origin_, 0x00FF66FF);
+		if (master->imgs.wall_img->height > origin.x && master->imgs.wall_img->width > origin.y )
+		{
+			printf("origin.x = %d\n origin.y = %d\n", origin.x  , origin.y);
+			color = img_data + (long)(origin.y *(canvas->size_line + origin.x) * (canvas->bpp / 8));
+			printf("\n%s\n", color);
+		}
+		// printf("\n%s\n", color);
+		if (!color)
+			color = "0x0000FF33";
+		draw_pixel(canvas, origin.x, origin.y, *(unsigned int*)color);
 	}
-//	 	origin_ = origin.y;
-//	 }
+
 }
 
 void    draw_block(t_master *master, t_img *canvas, t_xy origin)
@@ -57,12 +63,23 @@ void    draw_block(t_master *master, t_img *canvas, t_xy origin)
 	
 	x = 0;
 	y = 0;
+    char	*color = NULL;
+	char	*img_data = master->imgs.wall_img->data; 
+	
+	
 	while (y < master->mini_map_step_size_y)
 	{
 		while (x < master->mini_map_step_size_x)
 		{
-			draw_pixel(canvas, x + origin.x, y + origin.y, 0x0FF0FF00);
 			x++;
+			if (master->imgs.wall_img->height > x + origin.x && master->imgs.wall_img->width > y + origin.y)
+			{
+				// printf("x + origin.x = %ld\ny + origin.y = %d\n",\
+						x + origin.x , y + origin.y);
+				color = 0;
+				color = img_data + (int)(y + origin.y *( canvas->size_line + x + origin.x) * (canvas->bpp / 8));
+			}
+			draw_pixel(canvas, x + origin.x, y + origin.y, color);
 		}
 		x = 0;
 		y++;
@@ -93,3 +110,4 @@ void	clear_canvas(int size_x, int size_y, t_img *canvas)
 	while (i < size_x * size_y)
 		((unsigned int *)canvas->data)[i++] = 0x00000000;
 }
+

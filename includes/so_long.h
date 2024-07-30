@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:10:47 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/06/21 12:15:57 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/07/30 13:24:35 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 
 typedef struct s_imgs
 {
-	void	*wall_img;
-	void	*floor_img;
-	void	*collectible_img;
-	void	*exit_img;
-	void	*player_img;
+	t_img	*wall_img;
+	t_img	*floor_img;
+	t_img	*collectible_img;
+	t_img	*exit_img;
+	t_img	*player_img;
 }	t_imgs;
 
 typedef struct s_player
@@ -146,7 +146,7 @@ void    draw_cross(t_img *canvas, double x, double y, int color);
 void	clear_canvas(int size_x, int size_y, t_img *canvas);
 void    draw_block(t_master *master, t_img *canvas, t_xy origin);
 
-void    draw_column(t_img *canvas, t_xy origin, t_xy dest);
+void    draw_column(t_master *master, t_img *canvas, t_xy origin, t_xy dest);
 
 // FOR TESTING PURPOSES ONLY
 void	print_map(char **map, size_t y_index);
