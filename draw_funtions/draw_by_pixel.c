@@ -33,43 +33,40 @@ void    draw_debug_lines(t_img *canvas)
         draw_pixel(canvas, _x--, SCREEN_SIZE_Y >> 1, 0x00FF6600); // violet
 }
 
-void    draw_column(t_master *master, t_img *canvas, t_xy origin, t_xy dest)
+void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy dest)
 {
     int tex_x;
     int tex_y;
     unsigned int color = 0x00FF6600;
 	unsigned int next_color;
-	static double texture_index = 0;
-	double display_index = 0;
+	int texture_index = 0;
+	int display_index = 0;
 
 
-    tex_x = (origin.x + dest.x) * master->imgs.wall_img->width / (SCREEN_SIZE_X);
-	if (tex_x < 0 || tex_x > 136)
-		tex_x = 0;
+    tex_x = (origin.x) * 0.07;//master->imgs.wall_img->width / (SCREEN_SIZE_X);
     while (origin.y <= dest.y)
     {
-        tex_y = (texture_index ) * master->imgs.wall_img->height / (SCREEN_SIZE_Y);
+        tex_y = (texture_index) * 0.07;//master->imgs.wall_img->height / (SCREEN_SIZE_Y);
 
 
-        next_color = *(unsigned int *)(master->imgs.wall_img->data + ((tex_y * master->imgs.wall_img->size_line) + (tex_x * (master->imgs.wall_img->bpp / 8))));
-		if (next_color != 0x00000000)
-			color = next_color;
+        color = *(unsigned int *)(master->imgs.wall_img->data + ((tex_y * master->imgs.wall_img->size_line) + (tex_x * (master->imgs.wall_img->bpp / 8))));
+
 	
-		draw_pixel(canvas, origin.x, origin.y, 0x00FF6600);
+		draw_pixel(canvas, origin.x, origin.y, color);
 	
-		printf("color: %x\n", color);
-		printf("tex_x: %d\n", tex_x);
-		printf("tex_y: %d\n", tex_y);
-		printf("\norigin.x: %f\n\n", origin.x);
-		printf("\n");
+		// printf("color: %x\n", color);
+		// printf("tex_x: %d\n", tex_x);
+		// printf("tex_y: %d\n", tex_y);
+		// printf("\norigin.x: %f\n\n", origin.x);
+		// printf("\n");
 		
-        origin.y += display_index++;
+        origin.y++;
+    	// if (texture_index < 202 && texture_index > 0)
+    	texture_index++;
+    	// else
+    	// 	texture_index = 1;
     }
-	if (texture_index < 202 && texture_index > 0)
-		texture_index++;
-	else
-		texture_index = 1;
-	exit(0);	
+	// exit(0);	
 }
 
 void    draw_block(t_master *master, t_img *canvas, t_xy origin)
