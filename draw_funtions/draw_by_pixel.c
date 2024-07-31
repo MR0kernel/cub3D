@@ -35,55 +35,51 @@ void    draw_debug_lines(t_img *canvas)
 
 void    draw_column(t_master *master, t_img *canvas, t_xy origin, t_xy dest)
 {
-	(void)master;
-    char	*color = NULL;
-	char	*img_data = master->imgs.wall_img->data; 
-	
-	printf("AAAA origin.x = %d\n origin.y = %d\n", (origin.x  , origin.y));
-	while (origin.y++ <  dest.y)
-	{
-		if (master->imgs.wall_img->height > origin.x && master->imgs.wall_img->width > origin.y )
-		{
-			printf("origin.x = %d\n origin.y = %d\n", origin.x  , origin.y);
-			color = img_data + (long)(origin.y *(canvas->size_line + origin.x) * (canvas->bpp / 8));
-			printf("\n%s\n", color);
-		}
-		// printf("\n%s\n", color);
-		if (!color)
-			color = "0x0000FF33";
-		draw_pixel(canvas, origin.x, origin.y, *(unsigned int*)color);
-	}
+    int tex_x;
+    int tex_y;
+    unsigned int color;
 
+    while (origin.y <= dest.y)
+    {
+        tex_y = (origin.y - dest.y) * master->imgs.wall_img->height / (dest.y - origin.y);
+        tex_x = (origin.x) * master->imgs.wall_img->width / (SCREEN_SIZE_X);
+
+        if (tex_x >= 0 && tex_x < master->imgs.wall_img->width && tex_y >= 0 && tex_y < master->imgs.wall_img->height)
+        {
+            color = *(unsigned int *)(master->imgs.wall_img->data + (tex_y * master->imgs.wall_img->size_line + tex_x * (master->imgs.wall_img->bpp / 8)));
+        }
+            draw_pixel(canvas, origin.x, origin.y, color);
+        origin.y++;
+    }
 }
 
 void    draw_block(t_master *master, t_img *canvas, t_xy origin)
 {
-	int	x;
-	int	y;
-	
-	x = 0;
-	y = 0;
-    char	*color = NULL;
-	char	*img_data = master->imgs.wall_img->data; 
-	
-	
-	while (y < master->mini_map_step_size_y)
-	{
-		while (x < master->mini_map_step_size_x)
-		{
-			x++;
-			if (master->imgs.wall_img->height > x + origin.x && master->imgs.wall_img->width > y + origin.y)
-			{
-				// printf("x + origin.x = %ld\ny + origin.y = %d\n",\
-						x + origin.x , y + origin.y);
-				color = 0;
-				color = img_data + (int)(y + origin.y *( canvas->size_line + x + origin.x) * (canvas->bpp / 8));
-			}
-			draw_pixel(canvas, x + origin.x, y + origin.y, color);
-		}
-		x = 0;
-		y++;
-	}
+    int x;
+    int y;
+    unsigned int color;
+    int tex_x;
+    int tex_y;
+
+    y = 0;
+    while (y < master->mini_map_step_size_y)
+    {
+        x = 0;
+        while (x < master->mini_map_step_size_x)
+        {
+            tex_x = (x + origin.x) * master->imgs.wall_img->width / SCREEN_SIZE_X;
+            tex_y = (y + origin.y) * master->imgs.wall_img->height / SCREEN_SIZE_Y;
+
+            if (tex_x >= 0 && tex_x < master->imgs.wall_img->width && tex_y >= 0 && tex_y < master->imgs.wall_img->height)
+            {
+                color = *(unsigned int *)(master->imgs.wall_img->data + (tex_y * master->imgs.wall_img->size_line + tex_x * (master->imgs.wall_img->bpp / 8)));
+				printf("\n%d\n", color);
+            }
+            draw_pixel(canvas, x + origin.x, y + origin.y, color);
+            x++;
+        }
+        y++;
+    }
 }
 
 void    draw_cross(t_img *canvas, double x, double y, int color)

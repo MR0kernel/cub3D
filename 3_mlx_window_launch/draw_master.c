@@ -137,9 +137,9 @@ static double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_playe
 	b.y = hit_y.y - player.y;
 	
 	distance_a = sqrt(a.x * a.x + a.y * a.y);
-	printf("distanace a = %f", distance_a);
+	// printf("distanace a = %f", distance_a);
 	distance_b = sqrt(b.x * b.x + b.y * b.y);
-	printf("distanace a = %f", distance_b);
+	// printf("distanace a = %f", distance_b);
 	if (distance_a < distance_b)
 	{
 		draw_cross(master->mini_map, hit_x.x * master->mini_map_step_size_x, \
@@ -164,7 +164,7 @@ static void render_3d_map(t_master *master, t_player player)
 	for (int x = 0; x < SCREEN_SIZE_X; x++)
 	{
 		ray_dir = player.dir - (ONE_DEGREE * x / FOV);
-		printf("RAY DIR %f\n", ray_dir);
+		// printf("RAY DIR %f\n", ray_dir);
 		ray_player.dir = ray_dir;
 		distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
