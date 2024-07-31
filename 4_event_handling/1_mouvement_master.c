@@ -43,14 +43,14 @@ int	character_mouvement(t_master *master, int keypressed)
 	}
 	if (keypressed == XK_Left)
 	{
-		master->player.dir -= 0.01;
+		master->player.dir -= 0.05;
 		if (master->player.dir < 0)
 			master->player.dir = 2 * PI;
 		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
 	}
 	if (keypressed == XK_Right)
 	{
-		master->player.dir += 0.01;
+		master->player.dir += 0.05;
 		if (master->player.dir > 2 * PI)
 			master->player.dir = 0;
 		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
