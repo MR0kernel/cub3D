@@ -52,6 +52,8 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
 int	draw_map(t_master *master)
 {
 	clear_canvas(SCREEN_SIZE_X, SCREEN_SIZE_Y, master->canvas);
+	draw_floor(master->canvas);
+	draw_sky(master->canvas);
 	render_3d_map(master, master->player);
 	mlx_put_image_to_window(master->mlx, master->win, master->canvas, 0, 0);
 	draw_mini_map(master, 1, 1);
@@ -179,3 +181,46 @@ static void render_3d_map(t_master *master, t_player player)
 	}
 }
 
+void draw_sky(t_img *canvas)
+{
+    int x;
+    int y;
+
+    // Define the color for the sky
+    unsigned int sky_color = 0x0099CCFF; // Light blue
+
+    // Draw the sky on the upper half of the screen
+    y = 0;
+    while (y < SCREEN_SIZE_Y / 2)
+    {
+        x = 0;
+        while (x < SCREEN_SIZE_X)
+        {
+            draw_pixel(canvas, x, y, sky_color);
+            x++;
+        }
+        y++;
+    }
+}
+
+void draw_floor(t_img *canvas)
+{
+    int x;
+    int y;
+
+    // Define the color for the floor
+    unsigned int floor_color = 0x00333333; // Dark gray
+
+    // Draw the floor on the lower half of the screen
+    y = SCREEN_SIZE_Y / 2;
+    while (y < SCREEN_SIZE_Y)
+    {
+        x = 0;
+        while (x < SCREEN_SIZE_X)
+        {
+            draw_pixel(canvas, x, y, floor_color);
+            x++;
+        }
+        y++;
+    }
+}

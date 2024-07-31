@@ -153,6 +153,9 @@ void	clear_canvas(int size_x, int size_y, t_img *canvas);
 void    draw_block(t_master *master, t_img *canvas, t_xy origin);
 
 void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy dest);
+void draw_sky(t_img *canvas);
+void draw_floor(t_img *canvas);
+
 
 // FOR TESTING PURPOSES ONLY
 void	print_map(char **map, size_t y_index);

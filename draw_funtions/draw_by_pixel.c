@@ -47,6 +47,7 @@ void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy d
     while (origin.y <= dest.y)
     {
         tex_y = (texture_index) * 0.07;//master->imgs.wall_img->height / (SCREEN_SIZE_Y);
+        // dest[dx,dy] = src[dx*src_width/dest_width,  dy* src_height/dest_height]
 
 
         color = *(unsigned int *)(master->imgs.wall_img->data + ((tex_y * master->imgs.wall_img->size_line) + (tex_x * (master->imgs.wall_img->bpp / 8))));
