@@ -38,36 +38,24 @@ void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy d
     int tex_x;
     int tex_y;
     unsigned int color = 0x00FF6600;
-	unsigned int next_color;
 	int texture_index = 0;
-	int display_index = 0;
+    int wall_height = dest.y - origin.y;
 
 
-    tex_x = (origin.x) * 0.07;//master->imgs.wall_img->width / (SCREEN_SIZE_X);
     while (origin.y <= dest.y)
     {
-        tex_y = (texture_index) * 0.07;//master->imgs.wall_img->height / (SCREEN_SIZE_Y);
-        // dest[dx,dy] = src[dx*src_width/dest_width,  dy* src_height/dest_height]
+        // tex_x = (int)((origin.x )) ;
+        tex_x = (int)((origin.x  + master->imgs.wall_img->width)) ;
+        // tex_y = (int)(((origin.y - (SCREEN_SIZE_Y / 2) + (wall_height / 2)) * master->imgs.wall_img->height) / wall_height);
+        // tex_y = (origin.y + origin.y) * master->imgs.wall_img->height / (SCREEN_SIZE_Y);
+        tex_y = master->player.dir_y + (texture_index) * master->imgs.wall_img->height / wall_height;
 
 
         color = *(unsigned int *)(master->imgs.wall_img->data + ((tex_y * master->imgs.wall_img->size_line) + (tex_x * (master->imgs.wall_img->bpp / 8))));
-
-	
 		draw_pixel(canvas, origin.x, origin.y, color);
-	
-		// printf("color: %x\n", color);
-		// printf("tex_x: %d\n", tex_x);
-		// printf("tex_y: %d\n", tex_y);
-		// printf("\norigin.x: %f\n\n", origin.x);
-		// printf("\n");
-		
         origin.y++;
-    	// if (texture_index < 202 && texture_index > 0)
     	texture_index++;
-    	// else
-    	// 	texture_index = 1;
     }
-	// exit(0);	
 }
 
 void    draw_block(t_master *master, t_img *canvas, t_xy origin)

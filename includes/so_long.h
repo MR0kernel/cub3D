@@ -20,8 +20,8 @@
 # include "../gnl/get_next_line.h"
 # include "../ft_printf/ft_printf.h"
 
-# define WALL_IMAGE "./textures/wall70x70_1.xpm"
-# define FLOOR_IMAGE "./textures/floor70x70.xpm"
+# define WALL_IMAGE "./textures/tacos70x70.xpm"//"./textures/floor70x70.xpm"
+# define FLOOR_IMAGE "./textures/wall70x70_1.xpm"
 # define COLL_IMAGE "./textures/tacos70x70.xpm"
 # define EXIT_IMAGE "./textures/bed70x70.xpm"
 # define PLAYER_IMAGE "./textures/player_hack70x70_1.xpm"
@@ -50,6 +50,8 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
+	double	dir_x;
+	double	dir_y;
     double  dir;
 }	t_player;
 
@@ -153,8 +155,13 @@ void	clear_canvas(int size_x, int size_y, t_img *canvas);
 void    draw_block(t_master *master, t_img *canvas, t_xy origin);
 
 void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy dest);
-void draw_sky(t_img *canvas);
-void draw_floor(t_img *canvas);
+void 	draw_sky(t_img *canvas);
+void	 draw_floor(t_img *canvas);
+
+t_xy raycast_y(t_master *master, t_player player);
+t_xy raycast_x(t_master *master, t_player player);
+double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_player player);
+void render_3d_map(t_master *master, t_player player);
 
 
 // FOR TESTING PURPOSES ONLY

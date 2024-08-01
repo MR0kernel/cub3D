@@ -22,7 +22,6 @@ SRC =	so_long.c \
 		gnl/get_next_line.c \
 		general_purpose_functions/size_and_search.c \
 		general_purpose_functions/map_stock.c \
-		general_purpose_functions/init_master_structs.c \
 		1_given_file_tests/1_file_tests_master.c \
 		1_given_file_tests/ends_with_ber.c \
 		1_given_file_tests/is_closed.c \
@@ -30,9 +29,11 @@ SRC =	so_long.c \
 		1_given_file_tests/is_solvable.c \
 		2_try_load_images/1_images_master.c \
 		2_try_load_images/images_converter.c \
+		2_try_load_images/init_master_structs.c \
 		3_mlx_window_launch/1_window_master.c \
 		3_mlx_window_launch/draw_master.c \
 		3_mlx_window_launch/stop_program.c \
+		3_mlx_window_launch/raycaster.c \
 		4_event_handling/1_mouvement_master.c \
 		4_event_handling/key_press.c \
 		error_general_hendler/error_general_hendler.c \

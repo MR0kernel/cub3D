@@ -56,7 +56,7 @@ void	second_class_error_handler(t_master *master, int error_code)
 	else if (error_code == 8)
 		ft_printf("Exit is not reacheble\n");
 	else if (error_code == 9)
-		ft_printf("Albert Einstein removed one of the images !! wow !!\n");
+		ft_printf("t Einstein removed one of the images\n");
 	else if (error_code == 10)
 		ft_printf("mlx failled to init\n");
 	free_map(master->map.original_map, master->map.map_size_y);
@@ -78,15 +78,15 @@ void	third_class_error_handler(t_master *master, int error_code)
 void	fourth_class_error_handler(t_master *master, int error_code)
 {
 	if (error_code == 1)
-		ft_printf("Albert Einstein removed wall image !! wow !!\n");
+		ft_printf("could nor get wall image\n");
 	else if (error_code == 2)
-		ft_printf("Albert Einstein removed floor image !! wow !!\n");
+		ft_printf("could nor get floor image\n");
 	else if (error_code == 3)
-		ft_printf("Albert Einstein removed collectible image !! wow !!\n");
+		ft_printf("could nor get collectible image\n");
 	else if (error_code == 4)
-		ft_printf("Albert Einstein removed exit image !! wow !!\n");
+		ft_printf("could nor get exit image\n");
 	else if (error_code == 5)
-		ft_printf("Albert Einstein removed player image !! wow !!\n");
+		ft_printf("could nor get player image\n");
 	third_class_error_handler(master, 0);
 }
 
