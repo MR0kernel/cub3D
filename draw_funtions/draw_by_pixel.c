@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:35:29 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/08/01 22:01:51 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/01 23:03:47 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void    draw_debug_lines(t_img *canvas)
         draw_pixel(canvas, _x--, SCREEN_SIZE_Y >> 1, 0x00FF6600); // violet
 }
 
-void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy dest)
+inline void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy dest)
 {
     int tex_x;
     int tex_y;
@@ -41,33 +41,30 @@ void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy d
 	int texture_index = 0;
     int wall_height = dest.y - origin.y;
     
-    // double step = 1.0;
+    double step = master->distance/10;
+    printf("step = %f\n", step);
     double wallX; //where exactly the wall was hit
-    if (master->side = 0)
+ 
+    if (master->side == 0)
         wallX = master->player.y + master->distance * master->ray_dir_y;
     else
         wallX = master->player.x + master->distance * master->ray_dir_x;
     wallX -= floor((wallX));
 
     int texX = (int)(wallX * (double)(master->imgs.wall_img->height));
-    if(master->side == 0 && master->ray_dir_x > 0) texX = master->imgs.wall_img->height - texX - 1;
-    if(master->side == 1 && master->ray_dir_y < 0) texX = master->imgs.wall_img->height - texX - 1;
-
+    if(master->side == 0 && master->ray_dir_x > 0) 
+        texX = master->imgs.wall_img->height - texX - 1;
+    if(master->side == 1 && master->ray_dir_y < 0) 
+        texX = master->imgs.wall_img->height - texX - 1;
     // printf("master->player.x %f\n",master->player.x);
     // printf(" master->distance %f\n", master->distance);
     // printf("master->ray_dir_x%f\n",master->ray_dir_x);
 
     // printf("wallX%f\n",wallX);
-    
     while (origin.y <= dest.y)
     {
-        // tex_x = (int)((origin.x )) ;
-
-        tex_x = (int)((wallX * origin.x ) * master->imgs.wall_img->height / wall_height) ;
-        // tex_y = (int)(((origin.y - (SCREEN_SIZE_Y / 2) + (wall_height / 2)) * master->imgs.wall_img->height) / wall_height);
-        // tex_y = (origin.y + origin.y) * master->imgs.wall_img->height / (SCREEN_SIZE_Y);
-        tex_y = (master->player.dir_y + (texture_index) * master->imgs.wall_img->height / wall_height);// * step;
-
+        tex_x = (int)(((texX * master->imgs.wall_img->height)) / wall_height) ;
+        tex_y = (master->player.dir_y + (texture_index) * master->imgs.wall_img->height / wall_height) * step;
 
         color = *(unsigned int *)(master->imgs.wall_img->data + ((tex_y * master->imgs.wall_img->size_line) + (tex_x * (master->imgs.wall_img->bpp / 8))));
 		draw_pixel(canvas, origin.x, origin.y, color);

@@ -6,13 +6,13 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 23:37:11 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/08/01 20:55:13 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/01 22:40:40 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-t_xy raycast_y(t_master *master, t_player player)
+inline t_xy raycast_y(t_master *master, t_player player)
 {
 	t_xy	p_;
 	t_xy	ret;
@@ -45,7 +45,7 @@ t_xy raycast_y(t_master *master, t_player player)
 	return (ret);
 }
 
-t_xy raycast_x(t_master *master, t_player player)
+inline t_xy raycast_x(t_master *master, t_player player)
 {
 	t_xy	p_;
 	t_xy	ret;
@@ -78,7 +78,7 @@ t_xy raycast_x(t_master *master, t_player player)
 	return (ret);
 }
 
-double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_player player)
+inline double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_player player)
 {
 	double	distance_a;
 	double	distance_b;
@@ -91,9 +91,7 @@ double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_player playe
 	b.y = hit_y.y - player.y;
 	
 	distance_a = sqrt(a.x * a.x + a.y * a.y);
-	// printf("distanace a = %f", distance_a);
 	distance_b = sqrt(b.x * b.x + b.y * b.y);
-	// printf("distanace a = %f", distance_b);
 	if (distance_a < distance_b)
 	{
 		draw_cross(master->canvas, hit_x.x * master->mini_map_step_size_x, \
@@ -102,13 +100,12 @@ double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_player playe
 		return (distance_a);
 	}
 	draw_cross(master->canvas, hit_y.x * master->mini_map_step_size_x, \
-									hit_y.y * master->mini_map_step_size_y, 0x0000FF33);
-	// printf("hit_y.x = %f, hit_y.y = %f\n", hit_y.x, hit_y.y);
+									hit_y.y * master->mini_map_step_size_y, 0x00FF6600);
 	master->side = 1;
 	return (distance_b);
 }
 
-void render_3d_map(t_master *master, t_player player)
+inline void render_3d_map(t_master *master, t_player player)
 {
 	t_player ray_player = {player.x, player.y, player.dir_x, player.dir_y, 0};
 	double	ray_dir;
@@ -122,8 +119,11 @@ void render_3d_map(t_master *master, t_player player)
 		ray_player.dir = ray_dir;
 		master->ray_dir_x = cos(ray_player.dir);
 		master->ray_dir_y = sin(ray_player.dir);
+
+		
 		master->distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
+									
 		master->wall_height = (int)(SCREEN_SIZE_Y / master->distance);
 		wall_start = (-master->wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
 		if (wall_start < 0)
@@ -131,6 +131,7 @@ void render_3d_map(t_master *master, t_player player)
 		wall_end = (master->wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
 		if (wall_end >= SCREEN_SIZE_Y)
 			wall_end = SCREEN_SIZE_Y - 1;
+		
 		draw_column(master, master->canvas, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});
 	}
 }
