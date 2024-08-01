@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 23:37:11 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/04/27 23:37:47 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/01 20:55:13 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,13 @@ double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_player playe
 	{
 		draw_cross(master->canvas, hit_x.x * master->mini_map_step_size_x, \
 										hit_x.y * master->mini_map_step_size_y, 0x0000FF33);
+		master->side = 0;
 		return (distance_a);
 	}
 	draw_cross(master->canvas, hit_y.x * master->mini_map_step_size_x, \
 									hit_y.y * master->mini_map_step_size_y, 0x0000FF33);
 	// printf("hit_y.x = %f, hit_y.y = %f\n", hit_y.x, hit_y.y);
+	master->side = 1;
 	return (distance_b);
 }
 
@@ -110,7 +112,6 @@ void render_3d_map(t_master *master, t_player player)
 {
 	t_player ray_player = {player.x, player.y, player.dir_x, player.dir_y, 0};
 	double	ray_dir;
-	double	distance;
 	int		wall_height;
 	int		wall_start;
 	int		wall_end;
@@ -118,15 +119,16 @@ void render_3d_map(t_master *master, t_player player)
 	for (int x = 0; x < SCREEN_SIZE_X; x++)
 	{
 		ray_dir = player.dir - (ONE_DEGREE * x / FOV);
-		// printf("RAY DIR %f\n", ray_dir);
 		ray_player.dir = ray_dir;
-		distance = closest_distance(master, raycast_x(master, ray_player),
+		master->ray_dir_x = cos(ray_player.dir);
+		master->ray_dir_y = sin(ray_player.dir);
+		master->distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
-		wall_height = (int)(SCREEN_SIZE_Y / distance);
-		wall_start = (-wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
+		master->wall_height = (int)(SCREEN_SIZE_Y / master->distance);
+		wall_start = (-master->wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
 		if (wall_start < 0)
 			wall_start = 0;
-		wall_end = (wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
+		wall_end = (master->wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
 		if (wall_end >= SCREEN_SIZE_Y)
 			wall_end = SCREEN_SIZE_Y - 1;
 		draw_column(master, master->canvas, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});

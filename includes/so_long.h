@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:10:47 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/07/30 13:24:35 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/01 20:54:17 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,15 @@ typedef struct s_master
 	int			mini_map_size_y;
 	int			mini_map_step_size_x;
 	int			mini_map_step_size_y;
+
+	int			wallX;
+	int			wallY;
+	double		ray_dir;
+	double		distance;
+	int			side;
+	int			wall_height;
+	double		ray_dir_x;
+	double		ray_dir_y;
 }	t_master;
 
 /*
