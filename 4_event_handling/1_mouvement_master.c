@@ -12,7 +12,7 @@
 
 #include "../includes/so_long.h"
 
-static int	score_and_validation(t_master *master, int x, int y);
+static int	validation(t_master *master, t_xy x, t_xy y);
 
 int	character_mouvement(t_master *master, int keypressed)
 {
@@ -45,44 +45,34 @@ int	character_mouvement(t_master *master, int keypressed)
 	{
 		master->player.dir -= 0.05;
 		if (master->player.dir < 0)
-			master->player.dir = 2 * PI;
+			master->player.dir += 2 * PI;
+
+		master->player.dir_x = cos(master->player.dir);
+		master->player.dir_y = sin(master->player.dir);
+
 		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
 	}
 	if (keypressed == XK_Right)
 	{
 		master->player.dir += 0.05;
 		if (master->player.dir > 2 * PI)
-			master->player.dir = 0;
-		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
+			master->player.dir -= 2 * PI;
+		master->player.dir_x = cos(master->player.dir);
+		master->player.dir_y = sin(master->player.dir);
 	}
+	clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
 	return (0);
 }
 
-static int	score_and_validation(t_master *master, int x, int y)
+static int	validation(t_master *master, t_xy _x, t_xy _y)
 {
-	static int	number_of_moves;
+	int	x;
+	int	y;
 
-	if (master->map.original_map[y][x] == 'C')
-	{
-		master->map.original_map[y][x] = '0';
-		if (master->collectibles > 0)
-			master->collectibles--;
-	}
-	if (master->collectibles == 0)
-	{
-		if (master->map.original_map[y][x] == 'E')
-		{
-			ft_printf("Congratulations : number of mouvements = %d\n", \
-			number_of_moves += 1);
-			end_of_program(master, 0);
-		}
-	}
-	if (master->map.original_map[y][x] == '0' \
-	|| master->map.original_map[y][x] == 'P' )
-	{
-		number_of_moves++;
-		ft_printf("number of moves = %d\n", number_of_moves);
+	
+	printf("x = %d, y = %d\n", x, y);
+
+	if (x < 0 || y < 0 || x >= master->map.map_size_x || y >= master->map.map_size_y)
 		return (1);
-	}
 	return (0);
 }

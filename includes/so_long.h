@@ -35,6 +35,11 @@
 # define FOV 60
 # define ONE_DEGREE 0.01745329
 
+# define NORTH 0
+# define EAST 1
+# define SOUTH 2
+# define WEST 3
+
 # define X_TO_I mlx_xpm_file_to_image
 
 typedef struct s_imgs
@@ -60,6 +65,18 @@ typedef struct s_xy
     double	x;
     double	y;
 }	t_xy;
+
+typedef struct s_ray
+{
+    double	x;
+    double	y;
+	double	dir_x;
+	double	dir_y;
+	double	angle;
+	double	side;
+	double	distance;
+	double	orientation;
+}	t_ray;
 
 typedef struct s_int_xy
 {
@@ -90,14 +107,9 @@ typedef struct s_master
 	int			mini_map_step_size_x;
 	int			mini_map_step_size_y;
 
-	int			wallX;
-	int			wallY;
-	double		ray_dir;
-	double		distance;
-	int			side;
+	t_ray		ray;
 	int			wall_height;
-	double		ray_dir_x;
-	double		ray_dir_y;
+
 }	t_master;
 
 /*
@@ -167,9 +179,9 @@ void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy d
 void 	draw_sky(t_img *canvas);
 void	 draw_floor(t_img *canvas);
 
-t_xy raycast_y(t_master *master, t_player player);
-t_xy raycast_x(t_master *master, t_player player);
-double	closest_distance(t_master *master, t_xy hit_x, t_xy hit_y, t_player player);
+t_ray raycast_y(t_master *master, t_player player);
+t_ray raycast_x(t_master *master, t_player player);
+double	closest_distance(t_master *master, t_ray hit_x, t_ray hit_y, t_player player);
 void render_3d_map(t_master *master, t_player player);
 
 

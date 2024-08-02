@@ -41,24 +41,25 @@ inline void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_i
 	int texture_index = 0;
     int wall_height = dest.y - origin.y;
     
-    double step = master->distance/10;
-    printf("step = %f\n", step);
+    // double step = master->ray.distance/10;
+    double step = 1;
+    // printf("step = %f\n", step);
     double wallX; //where exactly the wall was hit
  
-    if (master->side == 0)
-        wallX = master->player.y + master->distance * master->ray_dir_y;
+    if (master->ray.side == 0)
+        wallX = master->player.y + master->ray.distance * master->ray.dir_y;
     else
-        wallX = master->player.x + master->distance * master->ray_dir_x;
+        wallX = master->player.x + master->ray.distance * master->ray.dir_x;
     wallX -= floor((wallX));
 
     int texX = (int)(wallX * (double)(master->imgs.wall_img->height));
-    if(master->side == 0 && master->ray_dir_x > 0) 
+    if(master->ray.side == 0 && master->ray.dir_x > 0) 
         texX = master->imgs.wall_img->height - texX - 1;
-    if(master->side == 1 && master->ray_dir_y < 0) 
+    if(master->ray.side == 1 && master->ray.dir_y < 0) 
         texX = master->imgs.wall_img->height - texX - 1;
     // printf("master->player.x %f\n",master->player.x);
-    // printf(" master->distance %f\n", master->distance);
-    // printf("master->ray_dir_x%f\n",master->ray_dir_x);
+    // printf(" master->ray.distance %f\n", master->ray.distance);
+    // printf("master->ray.dir_x%f\n",master->ray.dir_x);
 
     // printf("wallX%f\n",wallX);
     while (origin.y <= dest.y)
