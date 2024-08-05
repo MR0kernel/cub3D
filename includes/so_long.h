@@ -34,6 +34,7 @@
 # define MINI_MAP_DIV_Y 10
 # define FOV 60
 # define ONE_DEGREE 0.01745329
+# define WALL_HEIGHT 1000
 
 # define NORTH 0
 # define EAST 1
@@ -72,6 +73,7 @@ typedef struct s_ray
     double	y;
 	double	dir_x;
 	double	dir_y;
+	double	y_offset;
 	double	angle;
 	double	side;
 	double	distance;
@@ -175,7 +177,7 @@ void    draw_cross(t_img *canvas, double x, double y, int color);
 void	clear_canvas(int size_x, int size_y, t_img *canvas);
 void    draw_block(t_master *master, t_img *canvas, t_xy origin);
 
-void    draw_column(t_master *master, t_img *canvas, t_int_xy origin, t_int_xy dest);
+void    draw_column(t_master *master, t_img *canvas, t_img *img, t_int_xy origin, t_int_xy dest);
 void 	draw_sky(t_img *canvas);
 void	 draw_floor(t_img *canvas);
 

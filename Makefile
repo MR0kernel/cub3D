@@ -34,12 +34,13 @@ SRC =	so_long.c \
 		3_mlx_window_launch/draw_master.c \
 		3_mlx_window_launch/stop_program.c \
 		3_mlx_window_launch/raycaster.c \
-		4_event_handling/1_mouvement_master.c \
-		4_event_handling/key_press.c \
+		4_draw_funtions/draw_by_pixel.c \
+		4_draw_funtions/draw_wall.c \
+		5_event_handling/1_mouvement_master.c \
+		5_event_handling/key_press.c \
 		error_general_hendler/error_general_hendler.c \
 		error_general_hendler/free.c \
-		error_general_hendler/free_images.c \
-		draw_funtions/draw_by_pixel.c
+		error_general_hendler/free_images.c 
 
 all: $(NAME)
 

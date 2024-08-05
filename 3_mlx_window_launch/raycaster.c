@@ -102,20 +102,18 @@ inline double	closest_distance(t_master *master, t_ray hit_x, t_ray hit_y, t_pla
 	{
 		draw_cross(master->canvas, hit_x.x * master->mini_map_step_size_x, \
 										hit_x.y * master->mini_map_step_size_y, 0x0000FF33);
+		master->ray = hit_x;
 		master->ray.side = 0;
 		master->ray.dir_x = hit_x.x - player.x;
 		master->ray.dir_y = hit_x.y - player.y;
-		master->ray.distance = distance_a;
-		master->ray.orientation = hit_x.orientation;
 		return (distance_a);
 	}
 	draw_cross(master->canvas, hit_y.x * master->mini_map_step_size_x, \
 									hit_y.y * master->mini_map_step_size_y, 0x00FF6600);
+	master->ray = hit_y;
 	master->ray.side = 1;
 	master->ray.dir_x = hit_y.x - player.x;
 	master->ray.dir_y = hit_y.y - player.y;
-	master->ray.distance = distance_b;
-	master->ray.orientation = hit_y.orientation;
 	return (distance_b);
 }
 
@@ -126,10 +124,10 @@ inline void render_3d_map(t_master *master, t_player player)
 	int		wall_height;
 	int		wall_start;
 	int		wall_end;
-
+	master->ray.y_offset = 1;
 	for (int x = 0; x < SCREEN_SIZE_X; x++)
 	{
-		ray_dir = player.dir + (ONE_DEGREE * x / FOV);
+		ray_dir = (player.dir) + (ONE_DEGREE * x / FOV);
 		ray_player.dir = ray_dir;
 		master->ray.dir_x = cos(ray_dir);
 		master->ray.dir_y = sin(ray_dir);
@@ -138,22 +136,22 @@ inline void render_3d_map(t_master *master, t_player player)
 		master->ray.distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
 									
-		master->wall_height = (int)(SCREEN_SIZE_Y / master->ray.distance);
+		master->wall_height = (int)(WALL_HEIGHT / master->ray.distance);
+		if (master->wall_height > SCREEN_SIZE_Y)
+		{
+			master->ray.y_offset = (master->wall_height - SCREEN_SIZE_Y) >> 1;
+			master->wall_height = SCREEN_SIZE_Y;
+		}
 		wall_start = (-master->wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
-		if (wall_start < 0)
-			wall_start = 0;
 		wall_end = (master->wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
-		if (wall_end >= SCREEN_SIZE_Y)
-			wall_end = SCREEN_SIZE_Y - 1;
-		
-		draw_column(master, master->canvas, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});
+
 		if (master->ray.orientation == NORTH)
-			printf("NORTH\n");
-		if (master->ray.orientation == SOUTH)
-			printf("SOUTH\n");
-		if (master->ray.orientation == EAST)
-			printf("EAST\n");
-		if (master->ray.orientation == WEST)
-			printf("WEST\n");
+			draw_column(master, master->canvas, master->imgs.wall_img, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});
+		else if (master->ray.orientation == SOUTH)
+			draw_column(master, master->canvas, master->imgs.player_img, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});
+		else if (master->ray.orientation == EAST)
+			draw_column(master, master->canvas, master->imgs.exit_img, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});
+		else
+			draw_column(master, master->canvas, master->imgs.floor_img, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});
 	}
 }
