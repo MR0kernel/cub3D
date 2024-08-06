@@ -29,19 +29,12 @@ inline void draw_column(t_master *master, t_img *canvas, t_img *img, t_int_xy or
     step = (double)  img->height / wall_height ;
 
     // printf("step: %f\n", step);
+    tex_x = get_texture_x(master, img, wall_height);
     tex_y = 0; 
     while (origin.y < dest.y)
     {
         tex_y = ((texture_index * img->height) / (wall_height));
-        // if (master->ray.y_offset == 0)
-        // {
-        //     master->ray.y_offset = 1;
-
-        // }
         tex_y += (int)(master->ray.y_offset * step);
-        // printf("tex_y: %d\n", tex_y);
-        // printf("y_offset: %f\n", master->ray.y_offset);
-        tex_x = get_texture_x(master, img, wall_height);
         
         color = *(unsigned int *)(img->data + ((tex_y * img->size_line) + (tex_x * (img->bpp / 8))));
         draw_pixel(canvas, origin.x, origin.y, color);
@@ -59,24 +52,3 @@ static int get_texture_x(t_master *master, t_img *img, int wall_height)
     else
         return ((master->ray.x - (int)master->ray.x) * img->width);
 }
-// static int get_texture_x(t_master *master, t_img *img, int wall_height)
-// {
-//     double wallX;
-//     int texX;
-
-//     if (master->ray.side == 0)
-//         wallX = master->player.y + master->ray.distance * master->ray.dir_y;
-//     else
-//         wallX = master->player.x + master->ray.distance * master->ray.dir_x;
-
-//     wallX -= floor(wallX);
-
-//     texX = (int)(wallX * (double)img->width);
-    
-//     if (master->ray.side == 0 && master->ray.dir_x > 0) 
-//         texX = img->width - texX - 1;
-//     if (master->ray.side == 1 && master->ray.dir_y < 0) 
-//         texX = img->width - texX - 1;
-
-//     return texX;
-// }

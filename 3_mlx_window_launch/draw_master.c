@@ -19,10 +19,10 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
 	(void)hit_y;
 	size_t	x;
 	size_t	y;
+    int     ray_index;
 	
 	y = 0;
-	draw_cross(master->canvas, master->player.x * master->mini_map_step_size_x, \
-								master->player.y * master->mini_map_step_size_y, 0x00FF66FF);
+    ray_index = 0;
 	while (y < master->map.map_size_y)
 	{
 		x = 0;
@@ -31,13 +31,45 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
 			if (master->map.original_map[y][x] == '1')
 			{
 				draw_block(master, master->canvas, (t_xy){x *  master->mini_map_step_size_x, \
-																y * master->mini_map_step_size_y});
+																y * master->mini_map_step_size_y}, \ 
+                                                                master->imgs.wall_img);
 			}
+            else if (master->map.original_map[y][x] == 'C')
+            {
+                draw_block(master, master->canvas, (t_xy){x *  master->mini_map_step_size_x, \
+                                                                y * master->mini_map_step_size_y}, \ 
+                                                                master->imgs.collectible_img);
+            }
+            else if (master->map.original_map[y][x] == 'E')
+            {
+                draw_block(master, master->canvas, (t_xy){x *  master->mini_map_step_size_x, \
+                                                                y * master->mini_map_step_size_y}, \ 
+                                                                master->imgs.exit_img);
+            }
+            else if (master->map.original_map[y][x] == '0' || master->map.original_map[y][x] == 'P')
+            {
+                draw_block(master, master->canvas, (t_xy){x *  master->mini_map_step_size_x, \
+                                                                y * master->mini_map_step_size_y}, \ 
+                                                                master->imgs.floor_img);
+            }
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(master->mlx, master->win, master->canvas, 0, 0);
+	draw_mini_player(master, master->canvas, (t_xy){master->player.x * master->mini_map_step_size_x, \
+								master->player.y * master->mini_map_step_size_y});
+    while (master->list_of_rays[ray_index].x != 0)
+    {
+        if (master->list_of_rays[ray_index].side == 1)
+            draw_cross(master->canvas, master->list_of_rays[ray_index].x * master->mini_map_step_size_x, \
+                                master->list_of_rays[ray_index].y * master->mini_map_step_size_y, 0x0000FF33);
+        else
+            draw_cross(master->canvas, master->list_of_rays[ray_index].x * master->mini_map_step_size_x, \
+                                master->list_of_rays[ray_index].y * master->mini_map_step_size_y, 0x00FF6600);
+        ray_index++;
+    }
+    mlx_put_image_to_window(master->mlx, master->win, master->canvas, 0, 0);
+
 	return (0);
 }
 

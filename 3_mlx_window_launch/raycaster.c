@@ -100,16 +100,12 @@ inline double	closest_distance(t_master *master, t_ray hit_x, t_ray hit_y, t_pla
 	distance_b = sqrt(b.x * b.x + b.y * b.y);
 	if (distance_a < distance_b)
 	{
-		draw_cross(master->canvas, hit_x.x * master->mini_map_step_size_x, \
-										hit_x.y * master->mini_map_step_size_y, 0x0000FF33);
 		master->ray = hit_x;
 		master->ray.side = 0;
 		master->ray.dir_x = hit_x.x - player.x;
 		master->ray.dir_y = hit_x.y - player.y;
 		return (distance_a);
 	}
-	draw_cross(master->canvas, hit_y.x * master->mini_map_step_size_x, \
-									hit_y.y * master->mini_map_step_size_y, 0x00FF6600);
 	master->ray = hit_y;
 	master->ray.side = 1;
 	master->ray.dir_x = hit_y.x - player.x;
@@ -125,6 +121,7 @@ inline void render_3d_map(t_master *master, t_player player)
 	int		wall_start;
 	int		wall_end;
 	master->ray.y_offset = 1;
+	bzero(master->list_of_rays, sizeof(t_ray) * SCREEN_SIZE_X);// CHANGE TO FT_BZERO
 	for (int x = 0; x < SCREEN_SIZE_X; x++)
 	{
 		ray_dir = (player.dir) + (ONE_DEGREE * x / FOV);
@@ -135,7 +132,7 @@ inline void render_3d_map(t_master *master, t_player player)
 		
 		master->ray.distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
-									
+		master->list_of_rays[x] = master->ray;
 		master->wall_height = (int)(WALL_HEIGHT / master->ray.distance);
 		if (master->wall_height > SCREEN_SIZE_Y)
 		{

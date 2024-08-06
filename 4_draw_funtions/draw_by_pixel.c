@@ -33,7 +33,7 @@ void    draw_debug_lines(t_img *canvas)
         draw_pixel(canvas, _x--, SCREEN_SIZE_Y >> 1, 0x00FF6600); // violet
 }
 
-void    draw_block(t_master *master, t_img *canvas, t_xy origin)
+inline void    draw_block(t_master *master, t_img *canvas, t_xy origin, t_img *img)
 {
     int x;
     int y;
@@ -47,10 +47,12 @@ void    draw_block(t_master *master, t_img *canvas, t_xy origin)
         x = 0;
         while (x < master->mini_map_step_size_x)
         {
-            tex_x = (x + origin.x) * master->imgs.wall_img->width /  (SCREEN_SIZE_X / MINI_MAP_DIV_X);
-            tex_y = (y + origin.y) * master->imgs.wall_img->height / (SCREEN_SIZE_Y / MINI_MAP_DIV_Y);
-
-            color = *(unsigned int *)(master->imgs.wall_img->data + (tex_y * master->imgs.wall_img->size_line + tex_x * (master->imgs.wall_img->bpp / 8)));
+            tex_x = (x * img->width) / master->mini_map_step_size_x;
+            tex_y = (y * img->height) / master->mini_map_step_size_y;
+            if (x == 0 || y == 0 || x == master->mini_map_step_size_x - 1 || y == master->mini_map_step_size_y - 1)
+                color = 0x00FF6600;
+            else
+                color = *(unsigned int *)(img->data + (tex_y * img->size_line + tex_x * (img->bpp / 8)));
             draw_pixel(canvas, x + origin.x, y + origin.y, color);
             x++;
         }
@@ -72,6 +74,26 @@ void    draw_cross(t_img *canvas, double x, double y, int color)
     draw_pixel(canvas, (int)x, (int)y + 1, color);
     draw_pixel(canvas, (int)x, (int)y + 2, color);
     draw_pixel(canvas, (int)x, (int)y + 3, color);
+}
+
+void draw_mini_player(t_master *master, t_img *canvas, t_xy origin)
+{
+    int x;
+    int y;
+    unsigned int color;
+
+    y = 0;
+    color = 0x00000000;
+    while (y < 5)
+    {
+        x = 0;
+        while (x < 5)
+        {
+            draw_pixel(canvas, x + origin.x, y + origin.y, color);
+            x++;
+        }
+        y++;
+    }
 }
 
 void	clear_canvas(int size_x, int size_y, t_img *canvas)
