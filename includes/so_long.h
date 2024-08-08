@@ -41,6 +41,8 @@
 # define SOUTH 2
 # define WEST 3
 
+# define TILE_SIZE 70
+
 # define X_TO_I mlx_xpm_file_to_image
 
 typedef struct s_imgs

@@ -21,7 +21,7 @@ void	init_master_struct(t_master *master)
 	master->imgs.player_img = NULL;
 	master->player.x = 0;
 	master->player.y = 0;
-	master->player.dir = 0.53;
+	master->player.dir = 0;
 	master->player.dir_x = cos(master->player.dir);
 	master->player.dir_y = sin(master->player.dir);
 	master->map.original_map = NULL;

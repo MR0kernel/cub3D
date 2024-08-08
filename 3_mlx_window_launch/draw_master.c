@@ -65,7 +65,7 @@ int	draw_mini_map(t_master *master, double hit_x, double hit_y)
                                 master->list_of_rays[ray_index].y * master->mini_map_step_size_y, 0x0000FF33);
         else
             draw_cross(master->canvas, master->list_of_rays[ray_index].x * master->mini_map_step_size_x, \
-                                master->list_of_rays[ray_index].y * master->mini_map_step_size_y, 0x00FF6600);
+                                master->list_of_rays[ray_index].y * master->mini_map_step_size_y, 0xF1FF2133);
         ray_index++;
     }
     mlx_put_image_to_window(master->mlx, master->win, master->canvas, 0, 0);

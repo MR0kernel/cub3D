@@ -12,6 +12,8 @@
 
 #include "../includes/so_long.h"
 
+float	degree_to_radian(float degree);
+
 inline t_ray raycast_y(t_master *master, t_player player)
 {
 	t_xy	p_;
@@ -115,16 +117,20 @@ inline double	closest_distance(t_master *master, t_ray hit_x, t_ray hit_y, t_pla
 
 inline void render_3d_map(t_master *master, t_player player)
 {
-	t_player ray_player = {player.x, player.y, player.dir_x, player.dir_y, 0};
+	t_player ray_player = {player.x, player.y, player.dir_x, player.dir_y, 4};
 	double	ray_dir;
 	int		wall_height;
 	int		wall_start;
 	int		wall_end;
 	master->ray.y_offset = 1;
+
 	bzero(master->list_of_rays, sizeof(t_ray) * SCREEN_SIZE_X);// CHANGE TO FT_BZERO
+	ray_dir = player.dir - degree_to_radian(FOV / 2);
+	double ray_increment = degree_to_radian(FOV) / SCREEN_SIZE_X;
+
 	for (int x = 0; x < SCREEN_SIZE_X; x++)
 	{
-		ray_dir = (player.dir) + (ONE_DEGREE * x / FOV);
+		ray_dir += ray_increment;
 		ray_player.dir = ray_dir;
 		master->ray.dir_x = cos(ray_dir);
 		master->ray.dir_y = sin(ray_dir);
@@ -132,11 +138,18 @@ inline void render_3d_map(t_master *master, t_player player)
 		
 		master->ray.distance = closest_distance(master, raycast_x(master, ray_player),
 									raycast_y(master, ray_player), player);
+
+
+		master->ray.angle = ray_dir - player.dir;
+		master->ray.distance *= cos(master->ray.angle);
+
 		master->list_of_rays[x] = master->ray;
 		master->wall_height = (int)(WALL_HEIGHT / master->ray.distance);
+
 		if (master->wall_height > SCREEN_SIZE_Y)
 		{
-			master->ray.y_offset = (master->wall_height - SCREEN_SIZE_Y) >> 1;
+			master->ray.y_offset = ((master->wall_height - SCREEN_SIZE_Y)) ;
+			// printf("y_offset: %f\n", master->ray.y_offset);
 			master->wall_height = SCREEN_SIZE_Y;
 		}
 		wall_start = (-master->wall_height >> 1) + (SCREEN_SIZE_Y >> 1);
@@ -151,4 +164,9 @@ inline void render_3d_map(t_master *master, t_player player)
 		else
 			draw_column(master, master->canvas, master->imgs.floor_img, (t_int_xy){x, wall_start}, (t_int_xy){x, wall_end});
 	}
+}
+
+float	degree_to_radian(float degree)
+{
+	return (degree * (PI / 180));
 }
