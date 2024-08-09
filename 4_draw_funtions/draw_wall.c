@@ -29,17 +29,14 @@ inline void draw_column(t_master *master, t_img *canvas, t_img *img, t_int_xy or
 
     tex_pos = 0;
     tex_pos += master->ray.y_offset * step / 2;
-    
     while (origin.y < dest.y)
     {
         tex_y = (int)tex_pos;
-        
         if (tex_y >= 0 && tex_y < img->height)
         {
             color = *(unsigned int *)(img->data + ((tex_y * img->size_line) + (tex_x * (img->bpp / 8))));
             draw_pixel(canvas, origin.x, origin.y, color);
         }
-
         tex_pos += step;
         origin.y++;
     }
