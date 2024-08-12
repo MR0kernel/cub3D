@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all_structs.c                                 :+:      :+:    :+:   */
+/*   init_master_structs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guilrodr <guilrodr@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:14:53 by guilrodr          #+#    #+#             */
-/*   Updated: 2023/12/10 13:20:20 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/10 18:08:21 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,13 @@ void	init_master_struct(t_master *master)
 	master->collectibles = 0;
 	master->mlx = NULL;
 	master->win = NULL;
+}
+
+void	init_tools(t_player *ray_player, t_player *player)
+{
+	ray_player->x = player->x;
+	ray_player->y = player->y;
+	ray_player->dir = player->dir;
+	ray_player->dir_x = player->dir_x;
+	ray_player->dir_y = player->dir_y;
 }

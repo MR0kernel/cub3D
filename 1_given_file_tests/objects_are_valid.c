@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   objects_are_valid.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guilrodr <guilrodr@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 12:27:08 by guilrodr          #+#    #+#             */
-/*   Updated: 2023/12/09 18:53:32 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/10 18:39:09 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static void	is_there_zero_collectibles(t_master *master);
 static void	player_counter(t_master *master, size_t y, size_t x);
 static void	exit_counter(t_master *master);
 
@@ -42,7 +41,6 @@ void	valid_objects_check(t_master *master, char **map)
 		x = 0;
 		y++;
 	}
-	is_there_zero_collectibles(master);
 }
 
 static void	player_counter(t_master *master, size_t y, size_t x)
@@ -60,13 +58,6 @@ static void	exit_counter(t_master *master)
 {
 	static int	game_exit;
 
+	(void)master;
 	game_exit++;
-//	if (game_exit > 1)
-//		second_class_error_handler(master, 4);
-}
-
-static void	is_there_zero_collectibles(t_master *master)
-{
-//	if (master->collectibles == 0)
-//		second_class_error_handler(master, 5);
 }
