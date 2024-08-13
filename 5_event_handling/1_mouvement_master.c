@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 12:28:41 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/08/10 18:37:02 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/13 20:31:42 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	move_left_right(t_master *master, int keypressed)
 {
 	t_xy	next_pos;
 
+	next_pos.x = 0;
+	next_pos.y = 0;
 	if (keypressed == 97)
 	{
 		next_pos.x = master->player.x - (sin(master->player.dir) / 10);
@@ -57,6 +59,8 @@ static void	move_back_foward(t_master *master, int keypressed)
 {
 	t_xy	next_pos;
 
+	next_pos.x = 0;
+	next_pos.y = 0;
 	if (keypressed == 119)
 	{
 		next_pos.x = master->player.x + (cos(master->player.dir) / 10);

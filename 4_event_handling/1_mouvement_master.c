@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 12:28:41 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/06/21 12:08:00 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/13 20:41:41 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ int	character_mouvement(t_master *master, int keypressed)
 		master->player.x -= (cos(master->player.dir) / 10);
 		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
 	}
-	if (keypressed == 97)
-	{
-		master->player.y -= (sin(master->player.dir) / 10);
-		master->player.x += (cos(master->player.dir) / 10);
-		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
-	}
 	if (keypressed == 100)
 	{
 		master->player.y += (sin(master->player.dir) / 10);
 		master->player.x -= (cos(master->player.dir) / 10);
+		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
+	}
+	if (keypressed == 97)
+	{
+		master->player.y -= (sin(master->player.dir) / 10);
+		master->player.x += (cos(master->player.dir) / 10);
 		clear_canvas(SCREEN_SIZE_X / MINI_MAP_DIV_X, SCREEN_SIZE_Y / MINI_MAP_DIV_Y, master->mini_map);
 	}
 	if (keypressed == XK_Left)

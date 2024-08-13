@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_general_hendler.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guilrodr <guilrodr@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 20:41:19 by guilrodr          #+#    #+#             */
-/*   Updated: 2023/12/10 13:49:49 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/13 20:50:30 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:45:15 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/08/10 18:42:24 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/13 20:50:56 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	draw_map(t_master *master)
 	draw_sky(master->canvas);
 	render_3d_map(master, master->player);
 	mlx_put_image_to_window(master->mlx, master->win, master->canvas, 0, 0);
-	draw_mini_map(master, 1, 1);
 	return (0);
 }
+// draw_mini_map(master, 1, 1);
 
 void	draw_sky(t_img *canvas)
 {
