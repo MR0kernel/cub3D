@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 19:08:01 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/06/21 12:21:20 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/13 22:43:53 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	launch_window(t_master *master)
 						master->mini_map_size_x, master->mini_map_size_y);
 	draw_map(master);
 	mlx_loop_hook(master->mlx, draw_map, master);
-	mlx_hook(master->win, 2, (1L << 0), keypress, master);
+	mlx_hook(master->win, 2, (1L << 1), keypress, master);
 	mlx_hook(master->win, 17, 0, end_of_program_macro, master);
+	mlx_hook(master->win, 3, (1L << 0), keyrelease, master);
 	mlx_loop(master->mlx);
 }
 

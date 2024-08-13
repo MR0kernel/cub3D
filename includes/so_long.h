@@ -6,7 +6,7 @@
 /*   By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:10:47 by guilrodr          #+#    #+#             */
-/*   Updated: 2024/08/13 20:40:02 by guilrodr         ###   ########lyon.fr   */
+/*   Updated: 2024/08/13 22:50:23 by guilrodr         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define SKY_COLOR 0x87CEEB
 # define FLOOR_COLOR 0x8B4513
 
+# define MS 40
 # define TILE_SIZE 70
 
 # define X_TO_I mlx_xpm_file_to_image
@@ -64,6 +65,12 @@ typedef struct s_player
 	double	dir_x;
 	double	dir_y;
 	double	dir;
+	int		up;
+	int		down;
+	int		left;
+	int		rigth;
+	int		rotate_left;
+	int		rotate_right;
 }	t_player;
 
 typedef struct s_ray_tools
@@ -185,7 +192,9 @@ int		draw_player(t_master *master);
 */
 
 int		keypress(int keypressed, t_master *master);
-int		character_mouvement(t_master *master, int keypressed);
+int		keyrelease(int keypressed, t_master *master);
+
+int		character_mouvement(t_master *master);
 
 /*
 * draw funtions

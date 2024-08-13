@@ -6,7 +6,7 @@
 #    By: guilrodr <guilrodr@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/08 19:59:30 by guilrodr          #+#    #+#              #
-#    Updated: 2024/08/13 20:50:17 by guilrodr         ###   ########lyon.fr    #
+#    Updated: 2024/08/13 22:23:50 by guilrodr         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,18 +50,18 @@ $(NAME): $(SRC) includes/so_long.h
 	make -C ft_printf
 	make -C mlx_linux
 	$(CC) $(CFLAGS) $(SRC) $(MLXFLAGS) $(UTILSFLAGS) -o $(NAME)
-	norminette \
-				general_purpose_functions \
-				1_given_file_tests \
-				2_try_load_images \
-				3_mlx_window_launch \
-				4_draw_funtions \
-				5_event_handling \
-				error_general_hendler \
-				so_long.c \
-				includes \
-				gnl \
-				ft_printf \
+	# norminette \
+	# 			general_purpose_functions \
+	# 			1_given_file_tests \
+	# 			2_try_load_images \
+	# 			3_mlx_window_launch \
+	# 			4_draw_funtions \
+	# 			5_event_handling \
+	# 			error_general_hendler \
+	# 			so_long.c \
+	# 			includes \
+	# 			gnl \
+	# 			ft_printf \
 
 clean:
 	make clean -C ft_printf
